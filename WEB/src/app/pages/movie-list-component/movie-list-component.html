@@ -1,0 +1,22 @@
+<input type="text" placeholder="Buscar por título o genero" #searchInput (input)="movieFilter(searchInput.value)">
+
+<section class="almacenDatos">
+
+  @for (movie of filteredList; track movie._id)
+  {
+    <div class="car-card" [routerLink]="['/movies', movie._id]">
+      <h1>{{movie.title}}</h1>
+      <h3>Genero: {{movie.genre}}</h3>
+      <h3>{{movie.year}}</h3>
+      <img [src]="movie.imageUrl" [alt]="movie.title">
+      <p>Plataforma: {{movie.platform}}</p>
+      <p>Valoración: {{ '⭐'.repeat(movie.rating) }} ({{movie.rating}})</p>
+      <p>Vista: {{ movie.watched ? 'Sí' : 'No' }} </p>
+    </div>
+  }
+  @empty
+  {
+    <p>No hay peliculas</p>
+  }
+
+</section>

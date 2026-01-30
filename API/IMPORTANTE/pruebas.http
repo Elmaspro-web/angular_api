@@ -1,0 +1,46 @@
+###
+GET http://localhost:3000/movies
+Accept: application/json
+
+###
+GET http://localhost:3000/movies/697c68270003547960f669c8
+Accept: application/json
+
+
+###
+POST http://localhost:3000/movies
+Content-Type: application/json
+Accept: application/json
+
+{
+  "title": "Parasite",
+  "year": 2019,
+  "genre": "Thriller",
+  "rating": 9,
+  "platform": "Hulu",
+  "imageUrl": "https://m.media-amazon.com/images/I/71c8nJZQ3-L._AC_SL1178_.jpg",
+  "watched": false
+}
+
+
+###
+PUT http://localhost:3000/movies/697c68270003547960f669c8
+Content-Type: application/json
+Accept: application/json
+
+{
+  "title": "",
+  "year": "",
+  "genre": "",
+  "rating": 0,
+  "platform": "",
+  "imageUrl": ""
+}
+
+###
+DELETE http://localhost:3000/movies/697cabdd8e4800b0a01f5d98
+Accept: application/json
+
+###
+GET http://localhost:3000/movies
+Accept: application/json

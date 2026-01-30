@@ -1,0 +1,34 @@
+<main>
+  <form (ngSubmit)="onSubmit()">
+
+    <label>Titulo
+    <input type="text" [(ngModel)]="newFilm.title" name="title" required>
+    </label><br><br>
+
+    <label>Año de estreno
+    <input type="text" [(ngModel)]="newFilm.year" name="year" required>
+    </label><br><br>
+
+    <label>Genero
+    <input type="text" [(ngModel)]="newFilm.genre" name="genre" required>
+    </label><br><br>
+
+    <label>Valoración (0-10)
+    <input type="number" [(ngModel)]="newFilm.rating" name="rating" min="0" max="10" required>
+    </label><br><br>
+
+    <label>Plataforma
+    <input type="text" [(ngModel)]="newFilm.platform" name="platform" required>
+    </label><br><br>
+
+    <label>Imagen URL
+    <input type="text" [(ngModel)]="newFilm.imageUrl" name="imageUrl" required>
+    </label><br><br>
+
+    <label>Vista
+    <input type="checkbox" [(ngModel)]="newFilm.watched" name="watched" required>
+    </label><br><br>
+
+    <input type="submit" value="Subir Pelicula">
+  </form>
+</main>

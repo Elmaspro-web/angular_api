@@ -1,0 +1,33 @@
+<section>
+  @if (movie) {
+    <h2>{{ movie.title }}</h2>
+    <h3>{{movie.genre}}</h3>
+    <img [src]="movie.imageUrl" [alt]="movie.title">
+    <p><strong>Año:</strong> {{ movie.year }} </p>
+    <p><strong>Plataforma:</strong> {{ movie.platform }} </p>
+    <p><strong>Valoración:</strong> {{ '⭐'.repeat(movie.rating) }} ({{movie.rating}}) </p>
+    <p><strong>ID:</strong> {{ movie._id }} </p>
+    <p><strong>Vista:</strong> {{ movie.watched ? 'Sí' : 'No' }} </p>
+    <button (click)="showEditForm = !showEditForm">Editar</button>
+    <button (click)="deleteMovie(movie._id)">Eliminar</button><br><br>
+
+    @if (showEditForm) {
+      <form [formGroup]="movieForm" (ngSubmit)="editMovie(movie._id, movieForm.value)">
+        <input formControlName="title" placeholder="Título"><br><br>
+        <input formControlName="year" type="number" placeholder="Año"><br><br>
+        <input formControlName="genre" placeholder="Género"><br><br>
+        <input formControlName="rating" type="number" placeholder="Valoración"><br><br>
+        <input formControlName="platform" placeholder="Plataforma"><br><br>
+        <input formControlName="imageUrl" placeholder="URL Imagen"><br><br>
+        <label>
+          <input type="checkbox" formControlName="watched">
+          Marcar como vista
+        </label><br><br>
+        <button type="submit">Guardar</button>
+      </form>
+    }
+
+  } @else {
+    <p>Cargando detalles de la pelicula seleccionada...</p>
+  }
+</section>

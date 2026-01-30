@@ -1,0 +1,82 @@
+# PLANTILLA PARA API GENÉRICA
+
+## INFORMACIÓN PARA ENTENDERLA
+
+## 1. PARTES IMPORTANTES
+
+### - variablesGlobales.js
+
+ESTE ARCHIVO CONTIENE DATOS PARA USAR DE MANERA AUTOMÁTICA EN LA API
+
+LAS GLOBALES DE BASES DE DATOS SON LA URI (NO SE TOCA SI USAS EL DOCKER DE ARRIBA)  
+Y EL NOMBRE DE LA BASE DE DATOS DEL EXAMEN
+
+**BASES DE DATOS**  
+- DB_URI: "mongodb://mongoadmin:secret@localhost:27017"  
+- DB_NAME: "PetsDB"
+
+ESTAS GLOBALES SON LAS BASES QUE SE USARÁN PARA COGER LA INFORMACIÓN  
+UNA ES LA DE LA VARIABLE PRINCIPAL EN ESTE CASO ES `pets`  
+Y LA DE USUARIOS PARA EL LOGIN ES LA SEGUNDA QUE ENCONTRAMOS
+
+**NOMBRES DE COLECCIONES**  
+- MAIN_COLLECTION_NAME: "pets"  
+- USERS_COLLECTION_NAME: "usuarios"
+
+ESTAS VARIABLES SON PARA LAS RUTAS DEL mainService  
+LA BASE SE USARÁ EN TODAS LAS PETICIONES POST, GET, DELETE Y UPDATE  
+DE LA TABLA PRINCIPAL  
+EL ID_ROUTE ES LA RUTA PARA LA BÚSQUEDA POR ID (EN ESTE CASO CONFIGURADA SOLO PARA `pets`)  
+Y EL DE USERS ES EL QUE SE USA PARA USUARIOS
+
+**RUTAS**  
+- BASE_ROUTE: "/"  
+- USERS_ROUTE: "/usuarios"  
+- ID_ROUTE: "/:id"
+
+ESTAS SON LAS VARIABLES PARA LOS CAMPOS EN EL POST DEL mainService  
+ADEMÁS DE EN EL `getId()` Y `getTipo()`
+
+**CAMPOS COMUNES EN EL mainService POST**  
+- FIELDS:  
+  - ID: "_id"  
+  - NOMBRE: "nombre"  
+  - DESCRIPCION: "descripcion"  
+  - IMAGEN: "imagen"  
+  - TIPO: "tipo"  
+  - ESTADO: "estado"
+
+---
+
+### - pruebas.http
+
+AQUÍ SE ENCUENTRA UNA LISTA ¡¡¡ORDENADA!!! PARA AÑADIR Y PROBAR QUE FUNCIONA ESTA API
+
+---
+
+## 2. POSIBLES MODIFICACIONES
+
+SI SE PIDE EL USO DE OBTENCIÓN DE MÁS DE UNA TABLA PRINCIPAL Y UNA DE USUARIOS:
+
+EN EL mainService SE AÑADE ESTO:
+
+        static async get() {
+            const uri = DB_URI;
+            const client = new MongoClient(uri);
+            try {
+                await client.connect();
+                const database = client.db(DB_NAME);
+                const mainDB = database.collection(MAIN_COLLECTION_NAME);
+
+                const resultado = await mainDB.find().toArray();
+
+                return resultado;
+            } finally {
+                await client.close();
+            }
+        }
+
+QUE SE CAMBIARÁ EL PARENTESIS CON: MAIN_COLLECTION_NAME  
+A EL NOMBRE DE LA TABLA QUE DESEES  
+ASI CON CADA MÉTODO SOLO CAMBIANDO LA COLECCIÓN  
+Y LA CONTINUACIÓN SI NECESITA DATOS ESPECÍFICOS COMO EN EL POST LOS DATOS DE LOS CAMPOS
